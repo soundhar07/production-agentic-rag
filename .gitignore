@@ -1,0 +1,18 @@
+# Environment variables — NEVER commit these
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.python-version
+
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.
