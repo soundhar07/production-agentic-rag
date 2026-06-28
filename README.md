@@ -1,4 +1,4 @@
-# Legal RAG API
+# Legal Production RAG 
 
 A production-ready **FastAPI** chat API wrapping a **LangGraph agentic-RAG** agent that
 answers questions about the **Constitution of India** and returns **verifiable citations**
