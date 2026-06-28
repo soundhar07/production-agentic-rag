@@ -1,4 +1,4 @@
-# Constitution RAG API
+# Legal RAG API
 
 A production-ready **FastAPI** chat API wrapping a **LangGraph agentic-RAG** agent that
 answers questions about the **Constitution of India** and returns **verifiable citations**
@@ -299,7 +299,6 @@ app/
 tests/             # Cache, security, and ingest-parser tests
 docs/
 ├── constitution.pdf  # Source corpus (supply your own copy)
-└── adr/              # Architecture Decision Records
 ```
 
 ---
