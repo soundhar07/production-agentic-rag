@@ -108,16 +108,15 @@ class OutputValidator:
     def __init__(self):
         self.pii_detector = PIIDetector()
 
-    def validate(self, output:list) -> tuple[str, list[str]]:
+    def validate(self, output: str) -> tuple[str, list[str]]:
         """
         Validate and clean output.
+
+        The agent now returns the answer as a plain string (the RAG `generate`
+        node normalises Gemini's content blocks), so this takes a `str` directly.
         Returns: (cleaned_output, list_of_warnings)
         """
         warnings = []
-
-        # print(output,type(output))
-
-        output = output[0]['text']
 
         # Check for PII leakage in output
         pii_found = self.pii_detector.detect(output)

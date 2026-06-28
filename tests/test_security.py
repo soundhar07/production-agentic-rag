@@ -87,21 +87,17 @@ class TestOutputValidator:
         self.validator = OutputValidator()
 
     def test_clean_output_passes(self):
-        output, warnings = self.validator.validate([{'text':"Paris is the capital of France."}])
+        output, warnings = self.validator.validate("Paris is the capital of France.")
         assert output == "Paris is the capital of France."
         assert len(warnings) == 0
 
     def test_pii_in_output_gets_masked(self):
-        output, warnings = self.validator.validate(
-            [{"text": "Contact support at help@company.com"}]
-        )
+        output, warnings = self.validator.validate("Contact support at help@company.com")
         assert "help@company.com" not in output
         assert "[EMAIL REDACTED]" in output
         assert len(warnings) > 0
 
     def test_harmful_content_blocked(self):
-        output, warnings = self.validator.validate(
-            [{"text": "Here's how to hack into the system..."}]
-        )
+        output, warnings = self.validator.validate("Here's how to hack into the system...")
         assert "blocked" in output.lower()
         assert len(warnings) > 0

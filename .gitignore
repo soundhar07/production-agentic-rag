@@ -9,10 +9,18 @@ __pycache__/
 venv/
 .python-version
 
+# RAG vector store (rebuild with: uv run python -m app.ingest)
+chroma_db/
+
 
 # IDE
 .vscode/
 .idea/
 
 # OS
-.
+.agents
+.claude
+docs/adr
+CLAUDE.md
+CONTEXT.md
+skills-lock.json

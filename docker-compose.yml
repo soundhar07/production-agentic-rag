@@ -10,6 +10,14 @@ services:
     environment:
       - APP_ENV=production
       - LOG_LEVEL=INFO
+    # The vector store is built on the host (`uv run python -m app.ingest`) and
+    # mounted in read-only. Full in-container ingestion is a follow-up; for now
+    # build ./chroma_db before `docker compose up`.
+    # NOTE: the vector leg embeds each query via local Ollama, so the container
+    # needs Ollama reachable (e.g. set OLLAMA_HOST=http://host.docker.internal:11434).
+    # Wiring container->host Ollama is out of scope (v2).
+    volumes:
+      - ./chroma_db:/app/chroma_db:ro
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
       interval: 30s

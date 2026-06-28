@@ -19,14 +19,26 @@ class ChatRequest(BaseModel):
     thread_id: str = Field(default="default", description="Conversation thread ID")
 
 
+class Source(BaseModel):
+    """A verifiable citation read from a retrieved chunk's metadata.
+
+    `article` is None for the Preamble and Schedules (page-only citation).
+    """
+
+    article: str | None = None
+    page: int
+    part: str | None = None
+
+
 class ChatResponse(BaseModel):
     """Chat response returned to the client."""
 
-    response: dict | str
+    response: str
     thread_id: str
     model_used: str
     cached: bool = False
     processing_time_ms: float
+    sources: list[Source] = Field(default_factory=list)
     security_notes: list[str] = Field(default_factory=list)
     timestamp: str = Field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat()

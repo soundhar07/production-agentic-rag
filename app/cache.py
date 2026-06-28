@@ -31,9 +31,10 @@ class ResponseCache:
 
     # 'What is Python?' and 'what is python?'
 
-    def get(self, query: str) -> Optional[str]:
+    def get(self, query: str) -> Optional[dict]:
         """
-        Get cached response if it exists and hasn't expired.
+        Get the cached result dict if it exists and hasn't expired.
+        The stored value is {"response": str, "sources": list, "model_used": str}.
         Returns None on cache miss.
         """
         key = self._make_key(query)
@@ -51,11 +52,11 @@ class ResponseCache:
         self._misses += 1
         return None
 
-    def set(self, query: str, response: str) -> None:
-        """Cache a response."""
+    def set(self, query: str, value: dict) -> None:
+        """Cache a full result dict {"response", "sources", "model_used"}."""
         key = self._make_key(query)
         self._cache[key] = {
-            "response": response,
+            "response": value,
             "timestamp": time.time(),
             "query": query,
         }
